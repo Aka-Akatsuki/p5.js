@@ -53,6 +53,7 @@
       this.sy = 0;
       this.sx = random(640);
       this.fai = 2;
+      this.wait = random(10);
    }
   
 
