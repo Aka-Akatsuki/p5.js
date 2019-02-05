@@ -1,0 +1,18 @@
+リンク先
+http://redmoon.php.xdomain.jp/processing/pj-snow/snow-ver1.html
+
+
+ソースコード
+https://github.com/Aka-Akatsuki/p5.js/commit/a0050494cb97a9aa329e1f21eedcb81ba4680aa1#diff-6ea603e4270a7715707ff863e9ac6341
+
+
+p5.js について
+p5.js is a JavaScript library that starts with the original goal of Processing, to make coding accessible for artists,
+designers, educatots, and beginners, and reineterprets this for today's web
+
+p5.jsは、コーディングをアーティストが利用しやすいようにすることを目的とした、
+Processingの本来の目的から始まるJavaScriptライブラリです。
+デザイナー、教育者、そして初心者、そして今日のWebのためにこれを再解釈します
+(Google 翻訳)
+
+
