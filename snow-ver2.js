@@ -18,7 +18,7 @@
    snowR = 5;
    snowspeed = 3;
    
-   MaxNum = 100;
+   MaxNum = 150;
    
    for (let i = 0; i < MaxNum; i++) {   
      snow[i] = new objSnow();
