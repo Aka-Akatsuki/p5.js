@@ -53,15 +53,20 @@
       this.sy = 0;
       this.sx = random(640);
       this.fai = 2;
-      this.wait = random(10);
+      this.wait = random(100);
    }
   
 
 
    snowdraw() {
-      ellipse(this.sx, this.sy, this.fai, this.fai);
-      this.sy += random(this.speed);
-      this.sx += random(-1*this.speed, this.speed);
+      if (this.wait <= 0) {
+         ellipse(this.sx, this.sy, this.fai, this.fai);
+         this.sy += random(this.speed);
+         this.sx += random(-1*this.speed, this.speed);
+      }
+      else {
+         this.wait -= 1;
+      }
    } 
    
 
