@@ -18,7 +18,7 @@
    snowR = 5;
    snowspeed = 3;
    
-   MaxNum = 300;
+   MaxNum = 400;
    
    for (let i = 0; i < MaxNum; i++) {   
      snow[i] = new objSnow();
@@ -63,6 +63,9 @@
          ellipse(this.sx, this.sy, this.fai, this.fai);
          this.sy += random(this.speed);
          this.sx += random(-1*this.speed, this.speed);
+         if(this.sy > 480) {
+            this.sy = 0;
+         }
       }
       else {
          this.wait -= 1;
