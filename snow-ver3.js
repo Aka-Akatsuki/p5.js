@@ -4,6 +4,10 @@
  var snowR;
  var y;
  var MaxNum;
+ var baseup;
+ var  strtime;
+ var  resettime;
+ var  restbuf;
  
  let snow = [];
 
@@ -19,6 +23,10 @@
    snowspeed = 3;
    
    MaxNum = 500;
+   baseup = 0;
+   resettime = 200;
+   restbuf = 20;
+   strtime = 0;
    
    for (let i = 0; i < MaxNum; i++) {   
      snow[i] = new objSnow();
@@ -29,12 +37,41 @@
  function draw() {
      // ellipse(150, 150, 80, 80);
     // background(255,255,255);
+
   
+    //stroke(snowcolor); 
+    //fill(snowcolor);
+  
+
+    if (strtime >= resettime) {
+       strtime = 0;
+       if (millis() > 15000) {
+          baseup += 1;
+       }
+    }
+    strtime += 1;
+  
+    // chage background writeing
+    //background(0,0,100);
+    let vy;
+    vy = height - baseup;
+    
+    //push();
+    stroke(0,0,100);
+    fill(0,0,100);
+    rect(0,0,width,height - baseup);
+    //pop();
+     
+    fill(255);
+    text(str(strtime),100,100);
+    text(str(baseup),200,100);
+    text(str(vy),300,100);
+    text(str(millis()),400,100);
+     
     stroke(snowcolor); 
     fill(snowcolor);
   
-     background(0,0,100);
-    
+     
      //ellipse(100,y,snowR,snowR);
      y+=snowspeed;
      
