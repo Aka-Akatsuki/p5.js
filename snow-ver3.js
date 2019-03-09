@@ -10,6 +10,7 @@
  var  restbuf;
  
  let snow = [];
+ var arypoint = [];
 
  function setup() {
    //size(screen.width, screen.height);
@@ -20,7 +21,7 @@
    snowcolor = 200;
    y = 0;
    snowR = 5;
-   snowspeed = 3;
+   snowspeed = 1;
    
    MaxNum = 500;
    baseup = 0;
@@ -32,16 +33,13 @@
      snow[i] = new objSnow();
    }
  
+   for (let i = 0; i < width ; i++) {   
+     arypoint[i] = 0;
+   }
+ 
 }
 
  function draw() {
-     // ellipse(150, 150, 80, 80);
-    // background(255,255,255);
-
-  
-    //stroke(snowcolor); 
-    //fill(snowcolor);
-  
 
     if (strtime >= resettime) {
        strtime = 0;
@@ -52,22 +50,23 @@
     strtime += 1;
   
     // chage background writeing
-    //background(0,0,100);
+    background(0,0,100);
     let vy;
     vy = height - baseup;
     
     //push();
     stroke(0,0,100);
     fill(0,0,100);
-    rect(0,0,width,height - baseup);
+    //rect(0,0,width,height - baseup);
     //pop();
      
+/*
     fill(255);
     text(str(strtime),100,100);
     text(str(baseup),200,100);
     text(str(vy),300,100);
     text(str(millis()),400,100);
-     
+  */   
     stroke(snowcolor); 
     fill(snowcolor);
   
@@ -78,6 +77,15 @@
     for (let i = 0; i < MaxNum; i++) {   
        snow[i].snowdraw();
     }
+     
+    beginShape();
+    vertex(0,height);
+    for (let x = 0; x < width ; x++) {   
+      vertex(x,height - arypoint[x]);
+    }
+    vertex(width,height);
+    endShape(CLOSE);
+
     
 }
 
@@ -86,7 +94,7 @@
  class objSnow {
 
    constructor () {
-      this.speed = 1;
+      this.speed = snowspeed;
       this.sy = 0;
       this.sx = random(640);
       this.currentsx = 0;
@@ -115,9 +123,29 @@
          this.sx += this.currentsx;
          this.stepcount -= 1;
          
-         if(this.sy > 480) {
-            this.sy = 0;
+
+         if (this.sx < 0) { 
+            this.sx = width / 2;
          }
+         if (this.sx > width) { 
+            this.sx = width / 2;
+         }
+         
+         if (this.sy >= height) {
+             this.sy = 0;
+             arypoint[int(this.sx)] = arypoint[int(this.sx)] + 1;          
+             
+             if (this.fai > 1) {
+                arypoint[int(this.sx)] = arypoint[int(this.sx)] + 1;          
+                arypoint[int(this.sx-1)] = arypoint[int(this.sx-1)] + 1;          
+             }
+             //text(str(arypoint[int(this.sx)]),200,400);
+         }
+         
+
+         
+
+         
       }
       else {
          this.wait -= 1;
