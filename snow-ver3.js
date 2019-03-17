@@ -64,8 +64,10 @@
     //雪が積もる  雪の高さのY座標を計算する
     beginShape();
     vertex(0,height);
-    for (let x = 0; x < width ; x++) {   
+    for (let x = 0; x < width ; x+=10) {   
       vertex(x,height - arypoint[x]);
+      //curveVertex(x,height - arypoint[x]);
+
     }
     vertex(width,height);
     endShape(CLOSE);
@@ -111,8 +113,15 @@
          
          if (this.sy >= height) {
              this.sy = 0;
-             arypoint[int(this.sx)] = arypoint[int(this.sx)] + 1;          
              
+             if (arypoint[int(this.sx)] - arypoint[int(this.sx+1)] < 0) {
+
+                arypoint[int(this.sx)] = arypoint[int(this.sx)] + 1; 
+             }
+             else {         
+              arypoint[int(this.sx+1)] = arypoint[int(this.sx+1)] + 1;    
+             }
+
              if (this.fai > 1) {
                 arypoint[int(this.sx)] = arypoint[int(this.sx)] + 1;          
                 arypoint[int(this.sx-1)] = arypoint[int(this.sx-1)] + 1;          
