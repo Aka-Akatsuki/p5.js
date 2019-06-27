@@ -16,10 +16,28 @@
 <body>
 
 <form action="shooting-star.php" method="post">
-	<input type="radio" name="version" value="1" >Ver.1
-	<input type="radio" name="version" value="2" style="margin-left:20px;">Ver.2
-	<input type="radio" name="version" value="3" style="margin-left:20px;">Ver.3
-	<input type="submit" value="Change" style="margin-left:20px;">
+	<input type="radio" name="version" value="1" 
+	<?php 
+	  if (isset($_POST['version'])) {
+	    if ($_POST['version'] == 1) {echo("checked='Checked'");}
+	  }
+   ?>
+	>Ver.1
+	<input type="radio" name="version" value="2" style="margin-left:20px;"
+	<?php 
+	  if (isset($_POST['version'])) {
+	    if ($_POST['version'] == 2) {echo("checked='Checked'");}
+	  }
+   ?>
+	>Ver.2
+	<input type="radio" name="version" value="3" style="margin-left:20px;"
+	<?php 
+	  if (isset($_POST['version'])) {
+	    if ($_POST['version'] == 3) {echo("checked='Checked'");}
+	  }
+   ?>
+	>Ver.3
+	<input type="submit" value="Change" style="margin-left:40px;">
 </form>
 <div>
 
