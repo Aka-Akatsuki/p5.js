@@ -9,15 +9,17 @@ var aryStar = [];
 function setup() {
    //size(screen.width, screen.height);
     //createCanvas(640, 480);
-   createCanvas(screen.width, screen.height);
+   createCanvas(windowWidth, windowHeight);
 	strokeWeight(1);
     
-   han = random(150,80);
-   noFill();
+   han = random(80,40);
+   //noFill();
+   //noStroke();
+   
    //noLoop();
-   frameRate(20);
+   frameRate(30);
    changecount = 0;
-   nextStarCnt = 40;
+   nextStarCnt = 100;
    numberOfStars = 10;
    
    for (let i = 0; i < numberOfStars; i++) {
@@ -27,27 +29,21 @@ function setup() {
 }
 
 function draw() {
-   //background(255,235,235);
-   background(0,0,0);
-
-   stroke(150,125,125);
-   //translate(han+150,han+150);  
+   //background(0,0,0);
+   fill(0,20);
+   noStroke();
+	rect(0,0,windowWidth,windowHeight);
    
-   //setRandomStroke();
-   	
-	//Pentagon
-   	strokeWeight(2);
+   stroke(150,125,125);
+   	strokeWeight(1);
    	   	
-   //Star
-
-   setRandomStroke();
-	//let shtStar = new StarShape();
-   	//shtStar.drawShape();
-
+   //Draw Stars
    	for (var idx = 0;idx < numberOfStars; idx++){
-   		aryStar[idx].drawShape();
+   		setRandomStroke();
+   	   	aryStar[idx].drawShape();
    	}
    	
+	//Create New Stars
    changecount++;
    if (changecount > nextStarCnt) {
    		for (let i = 0; i < numberOfStars; i++) {
@@ -59,11 +55,13 @@ function draw() {
 
 }
 
+//Paint a Color 
 function setRandomStroke() {
    	clrR = random(255);
    	clrG = random(255);
    	clrB = random(255);   
    	stroke(clrR,clrG,clrB);
+   	fill(clrR,clrG,clrB);
 }
 
 
@@ -79,44 +77,31 @@ class StarShape
       this.lineColorG = random(255);
       this.lineColorB = random(255);
       this.lineWeight = 1;
-      this.han = random(30,20);
+      this.han = random(15,8);
       this.BaseAngle = 72;
       this.DiffX = random(200,-250);
       this.DiffY = random(200,-250);
       this.nextStart = random(50);
       
-   	   this.BaseX = random(screen.width);
-   	   this.BaseY = random(screen.height);
+   	   this.BaseX = random(windowWidth);
+   	   this.BaseY = random(windowHeight);
    }
-
-   drawShape() {
-		//ellipse(0,0,han*2,han*2);  //Base circle
-		
-   		this.angStep = 72; //aryAngStep[aryIDX];
-   		//this.angCnt = 5 ;
-
-   		//this.aryX = [];
- 		//this.aryY = [];
-   	   var idxH = 0;
-   	   var x,y;
    
-   		for (var angl = 0;angl <= 360;angl += this.BaseAngle){
-      		y = this.BaseY + sin(radians(angl + this.nextStart)) * this.han;
-      		x = this.BaseX + cos(radians(angl + this.nextStart)) * this.han;
+   drawShape() {		
+   		//this.angStep = 72; 
+   	   //var idxH = 0;
+   	   var x,y;
 
-      		this.aryX[idxH] = x //+ this.DiffX;
-      		this.aryY[idxH] = y //+ this.DiffY;
-      		
-      		idxH += 1;
-      		//text(this.angStep,0,0);
+   		beginShape();
+   		for (var angl = 0;angl <= 720;angl += this.BaseAngle*2){
+   		   x = this.BaseX + cos(radians(angl + this.nextStart)) * this.han;
+      		y = this.BaseY + sin(radians(angl + this.nextStart)) * this.han;
+			vertex(x,y);
 	   }
-/*
-      line(this.aryX[0],this.aryY[0],this.aryX[2],this.aryY[2]);
-   		line(this.aryX[2],this.aryY[2],this.aryX[4],this.aryY[4]);
-   		line(this.aryX[4],this.aryY[4],this.aryX[1],this.aryY[1]);
-   		line(this.aryX[1],this.aryY[1],this.aryX[3],this.aryY[3]);
-   		line(this.aryX[3],this.aryY[3],this.aryX[0],this.aryY[0]);
-*/
+      endShape(CLOSE);
+		this.nextStart++;   // rotate Count
+		
+      /*
 		beginShape();
 		vertex(this.aryX[0],this.aryY[0]);
 		vertex(this.aryX[2],this.aryY[2]);
@@ -124,11 +109,11 @@ class StarShape
 		vertex(this.aryX[1],this.aryY[1]);
 		vertex(this.aryX[3],this.aryY[3]);
 		endShape(CLOSE);
-		
-      this.nextStart++;
-      
+		*/
+
    }
 
+   
 }
 
 
