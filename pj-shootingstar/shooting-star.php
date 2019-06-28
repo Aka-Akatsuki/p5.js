@@ -57,7 +57,7 @@
     }    
 
   } else {
-    echo('<script src="shooting-star-001.js"></script>');
+    echo('<script src="shooting-star-003.js"></script>');
   }
 ?>
 
