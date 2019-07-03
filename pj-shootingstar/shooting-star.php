@@ -30,7 +30,8 @@
 	      if ($_POST['version'] == 2) {$msg = $msg . ">> Version 2  「ほし が いくつも えがけるようになる」";}
 	      if ($_POST['version'] == 3) {$msg = $msg . ">> Version 3  「ほし に いろをつけ、かいてん させる」";}
 	      if ($_POST['version'] == 4) {$msg = $msg . ">> Version 4  「ほし が いどうする」";}
-	    }
+	      	if ($_POST['version'] == 5) {$msg = $msg . ">> Version 5  「ほし の 色がクリックで変わる」";}
+	    } else {$msg = $msg . ">> Version 5  「ほし の 色がクリックで変わる」";}
 	    echo("<p>" . $msg . "</p>");
    ?>
    
@@ -67,6 +68,14 @@
    ?>
 	>Ver.4
 
+	<input type="radio" name="version" value="5" style="margin-left:20px;"
+	<?php 
+	  if (isset($_POST['version'])) {
+	    if ($_POST['version'] == 5) {echo("checked='Checked'");}
+	  } else {echo("checked='Checked'");}
+   ?>
+	>Ver.5
+	
 	<input type="submit" value="Change" style="margin-left:40px;">
 
 	
@@ -89,10 +98,13 @@
 		case 4:
     		echo('<script src="shooting-star-004.js"></script>');
 			break;
+		case 5:
+    		echo('<script src="shooting-star-005.js"></script>');
+			break;
     }    
 
   } else {
-    echo('<script src="shooting-star-004.js"></script>');
+    echo('<script src="shooting-star-005.js"></script>');
   }
 ?>
 
