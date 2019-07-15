@@ -8,6 +8,10 @@ var aryStar = [];
 var changeColorCnt;
 let cSlider;
 let cValue;
+let befmouseX;
+
+var slider;
+var maxOfStars;
 
 function setup() {
     //createCanvas(640, 480);
@@ -21,47 +25,67 @@ function setup() {
    frameRate(30);
    changecount = 0;
    nextStarCnt = 150;
-   numberOfStars = 5;
+   numberOfStars = 7;
    changeColorCnt = 0;
-   
+   maxOfStars = 50;
+
+	//Create Star class
    for (let i = 0; i < numberOfStars; i++) {
    		aryStar[i] = new StarShape();
    }
    
 	cValue = 0;
+	befmouseX = -100
+	
+   slider = createSlider(1, maxOfStars, numberOfStars);  //0:最小値、最大値、初期値
+   slider.style('width', '200px');
+   slider.position(windowWidth - 250,50);
+
 
 }
 
 function draw() {
+
+	//---  Make the background color black. ---//
    //background(0,0,0);
-   //look afterimage
    fill(0,20);
    noStroke();
 	rect(0,0,windowWidth,windowHeight);
    
-   stroke(150,125,125);
+//   stroke(150,125,125);
    	strokeWeight(1);
    	   	
-   //Draw Stars
+   stroke(255);
+   //text(slider.value(),windowWidth - 100,10);
+   	if (numberOfStars != slider.value() ) {  	   numberOfStars = slider.value() ;
+      for (let i = 0; i < numberOfStars; i++) {
+    		aryStar[i] = new StarShape();
+      }
+   }
+   	   	
+
+   //---  Draw Stars. ---//
    	for (var idx = 0;idx < numberOfStars; idx++){
       //setRandomStroke();
       aryStar[idx].fillStarColor();
    	   	aryStar[idx].drawShape();
    	}
 
-	//Reset and Create New Stars
-	/*
-   changecount++;
-   if (changecount > nextStarCnt) {
-   		for (let i = 0; i < numberOfStars; i++) {
-   			aryStar[i] = new StarShape();
+
+   //--- Support for mouseclicked event not working on iOS ---//
+   if (mouseX != befmouseX) {
+		if (cValue == 0) {
+			cValue = 100;
+		} else {
+			cValue = 0;
 		}
-   		changecount = 0;
-   }
-  */
+	   	befmouseX = mouseX;
+	}
 
 }
 
+/*
+--- Pc browser mouseclicked event does not work after adding this event ---
 function mousePressed(){
 	if (cValue == 0) {
 		cValue = 100;
@@ -71,6 +95,16 @@ function mousePressed(){
 	//text("clicked",cValue,50);
 }
 
+function touchStarted() {
+	if (cValue == 0) {
+		cValue = 100;
+	} else {
+		cValue = 0;
+	}
+	//text("clicked",cValue,50);
+
+}
+*/
 
 function mouseClicked(){
 	if (cValue == 0) {
@@ -82,7 +116,7 @@ function mouseClicked(){
 }
 
 
-//Paint a new color 
+//--- No uesed.     Paint a new color ---//
 function setRandomStroke() {
    	clrR = random(255);
    	clrG = random(255);
@@ -111,7 +145,7 @@ class StarShape
       this.lineWeight = 1;
       this.radius = random(12,7);
       this.BaseAngle = 72;
-      this.nextStart = random(50);   //First katamuki
+      this.nextStart = random(50);   //Initial value of tilt angle
       
       this.rotateSpeed = random(15,5);
       this.Xspeed = random(7,4); 
@@ -124,6 +158,7 @@ class StarShape
    	   this.BaseY = random(windowHeight/2,-1 * windowHeight / 3);  //center coordinates Y
    }
    
+	//---  Draw Star shape. ---//
    drawShape() {		
    	   var x,y;
    	   
@@ -152,39 +187,33 @@ class StarShape
          this.wait--;
       }
       
-		this.nextStart = this.nextStart + this.rotateSpeed;   // rotate Count
+		this.nextStart = this.nextStart + this.rotateSpeed;   // 
 		this.BaseX+=this.Xspeed;
 		this.BaseY+=this.Yspeed;
-      /*
-		beginShape();
-		vertex(this.aryX[0],this.aryY[0]);
-		vertex(this.aryX[2],this.aryY[2]);
-		vertex(this.aryX[4],this.aryY[4]);
-		vertex(this.aryX[1],this.aryY[1]);
-		vertex(this.aryX[3],this.aryY[3]);
-		endShape(CLOSE);
-		*/
 
    }
 
+   //--- coloring in star. ---//
    fillStarColor() {
 
    		var clrR, clrG, clrB
    		clrR = random(255);
    		clrG = random(255);
    		clrB = random(255);   
-   		stroke(clrR,clrG,clrB);
-
-		//Test alpha
+   		
+		// ver.5 chaneged 
+   		//stroke(clrR,clrG,clrB);
 		//fill(clrR,clrG,clrB);
+		
 		noStroke();
       var starColor;
       if (cValue == 0) {
-		starColor = color(clrR,clrG,clrB);    //several Color
+			starColor = color(clrR,clrG,clrB);    //many colors
 		} else {
-   		starColor = color(this.colorR,this.colorG,this.colorB);   //one Color
+   			starColor = color(this.colorR,this.colorG,this.colorB);   //one Color
    		}
-
+   		
+		//--- Make the star's orbit disappear and disappear. ---//
    		starColor.setAlpha(128 + 128 * sin(millis() / 1000 / this.brinkSpeed) );
    		fill(starColor);
 	}
