@@ -16,6 +16,8 @@
 <html>
   <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.js"></script>
+
     <title> aka.Akatsuki Project -- Make a wish on a star -- </title>
     <meta name="discription" content="流れ星 Make a wish on a star" >
   </head>
