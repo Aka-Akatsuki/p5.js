@@ -11,6 +11,8 @@ let NO_PointY = 400;  //y座標
 
 let titleFontsize = 30;  //タイトルのフォントサイズ
 let numberFontsize = 200;  //番号のフォントサイズ
+let selectedNoFontsize = 30;  //タイトルのフォントサイズ
+
 
 let maxthreshold = 20;
 let minthreshold = 10;
@@ -24,9 +26,21 @@ let NO1, NO2, NO3;
 let stopedNO1, stopedNO2, stopedNO3;
 let thresholdNO1, thresholdNO2, thresholdNO3;
 
+let selectNO = '';
+
+/*
+Can not load. Stoped Loading…
+let font_slot;
+function preload() {
+   font_slot = loadFont("Orbitron");
+}
+*/
+
 function setup() {
    createCanvas(windowWidth, windowHeight);
-
+   
+   textFont("Orbitron");
+   //textFont(font_slot);
    frameRate(10);
 
    	NO1 = int(random(0,9)); 
@@ -124,6 +138,8 @@ function draw() {
 	   befmouseX = mouseX;
 
 	   if(thresholdNO1 < 0 && thresholdNO2 < 0 && thresholdNO3 < 0 ) {
+	      selectNO += "  <" + String(NO1) + String(NO2) + String(NO3) + ">";
+
          stopedNO1 = 0;
          stopedNO2 = 0;
          stopedNO3 = 0;
@@ -138,7 +154,8 @@ function draw() {
    text(befmouseX,10,20);
    */
    
-
+   textSize(selectedNoFontsize);
+   text(selectNO,10,windowHeight - 20);
 }
 
 //--------------------------------------
