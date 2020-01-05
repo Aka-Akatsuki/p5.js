@@ -6,21 +6,25 @@ let titlePointY = 50;
 let NO1_PointX = 200;   //１桁目文字のx座標
 let NO2_PointX = 400;  //２桁目文字のx座標
 let NO3_PointX = 600;  //３桁目文字のx座標
-let NO_PointY = 400;  //y座標
+let NO_PointY = 800;  //y座
 
 
 let titleFontsize = 30;  //タイトルのフォントサイズ
-let numberFontsize = 200;  //番号のフォントサイズ
+let numberFontsize = 250;  //番号のフォントサイズ
 let selectedNoFontsize = 30;  //タイトルのフォントサイズ
 
 
-let maxthreshold = 20;
-let minthreshold = 10;
+let maxthreshold = 25;
+let minthreshold = 15;
 
 let mergin_x;
 let mergin_y;
 
 let interval_x = 60;
+
+let startFrameRate = 15;
+let middleFrameRate = 10;
+let lastFrameRate = 6;
 
 let NO1, NO2, NO3;
 let stopedNO1, stopedNO2, stopedNO3;
@@ -30,18 +34,21 @@ let selectNO = '';
 
 /*
 Can not load. Stoped Loading…
+
 let font_slot;
-function preload() {
-   font_slot = loadFont("Orbitron");
-}
 */
+function preload() {
+   //font_slot = loadFont("Orbitron");
+   //textFont("Orbitron");
+}
+
 
 function setup() {
    createCanvas(windowWidth, windowHeight);
    
-   textFont("Orbitron");
+   //textFont("Orbitron");
    //textFont(font_slot);
-   frameRate(10);
+   frameRate(startFrameRate);
 
    	NO1 = int(random(0,9)); 
    	NO2 = int(random(0,9));
@@ -61,7 +68,7 @@ function setup() {
    NO3_PointX = NO2_PointX + textWidth(NO2) + interval_x;
    NO1_PointX = NO2_PointX - textWidth(NO2) - interval_x;
 
-   NO_PointY = windowHeight / 10 + 200;
+   NO_PointY = windowHeight / 10 + 250;
       
 }
 
@@ -73,6 +80,7 @@ function draw() {
    textSize(titleFontsize);
    
    //textStyle(BOLDITALIC);
+   fill(0,0,0);
    text(mainTitle, (windowWidth - textWidth(mainTitle)) / 2 , 
                      windowHeight / 12);
 
@@ -85,10 +93,19 @@ function draw() {
    rect(NO1_PointX - mergin_x, NO_PointY - mergin_y + 20, 
           textWidth(NO1) + mergin_x * 2, mergin_y + 20);
 */
-          
+   fill(200,200,200);
+   if (thresholdNO1 <= 0) { fill(0,0,0); }
    text(NO1,NO1_PointX,NO_PointY);
+   
+   fill(200,200,200);
+   if (thresholdNO2 <= 0) { fill(0,0,0); }
    text(NO2,NO2_PointX,NO_PointY);
+
+   fill(200,200,200);
+   if (thresholdNO3 <= 0) { fill(0,0,0); }
    text(NO3,NO3_PointX,NO_PointY);
+
+   
    
    if (stopedNO1 == 0) {
       NO1 += 1;
@@ -99,6 +116,10 @@ function draw() {
       if (thresholdNO1 > 0) { 
          NO1 += 1;
          if (NO1 > 9) {NO1 = 0;}
+      }
+      else {
+         // Stop NO1 
+         frameRate(middleFrameRate);
       }
    }
 
@@ -112,6 +133,10 @@ function draw() {
          NO2 += 1;
          if (NO2 > 9) {NO2 = 0;}
       }
+      else {
+         frameRate(lastFrameRate);
+      }
+
   }   
    
    if (stopedNO3 == 0) {
@@ -144,7 +169,9 @@ function draw() {
          stopedNO2 = 0;
          stopedNO3 = 0;
          setThreshold();
-	   }
+
+         frameRate(startFrameRate);
+      }
    }
 	
 
@@ -155,6 +182,7 @@ function draw() {
    */
    
    textSize(selectedNoFontsize);
+   fill(255,75,125);
    text(selectNO,10,windowHeight - 20);
 }
 
@@ -162,7 +190,7 @@ function draw() {
 // 番号が止まるまでのカウント数をランダムに決める
 //１桁目、二桁目、3桁目の順に止まる
 function setThreshold(){
-      thresholdNO1 = int(random(minthreshold, maxthreshold));
+      thresholdNO1 = int(random(minthreshold, maxthreshold)) * 2;
       thresholdNO2 = int(random(minthreshold, maxthreshold));
       thresholdNO3 = int(random(minthreshold, maxthreshold));
       thresholdNO2 += thresholdNO1;
